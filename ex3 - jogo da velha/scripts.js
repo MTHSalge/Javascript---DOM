@@ -110,12 +110,20 @@ function handleBoardClick(ev) {
   const winCondition = getWinCondition();
   if (winCondition.length > 0) {
     handleWin(winCondition);
+    endGame();
   } else if (vBoard.flat().includes("")) {
     playerTurn = playerTurn === "player1" ? "player2" : "player1";
     updateTitle();
   } else {
     document.querySelector("h2").innerHTML = "Draw!";
   }
+}
+
+function endGame() {
+  boardRegions.forEach(function (element) {
+    element.removeEventListener("click", handleBoardClick);
+    element.classList.remove("cursor-pointer");
+  });
 }
 
 document.getElementById("start").addEventListener("click", initGame);
